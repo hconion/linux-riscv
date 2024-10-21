@@ -96,8 +96,8 @@ void __init sbi_ipi_init(void)
 			  : "irqchip/sbi-ipi:starting",
 			  sbi_ipi_starting_cpu, NULL);
 
-	riscv_ipi_set_virq_range(virq, BITS_PER_BYTE,
-			clint_ipi_base ? true : false);
+	riscv_ipi_set_virq_range(virq, BITS_PER_BYTE);
+//		,	clint_ipi_base ? true : false);
 
 	pr_info("providing IPIs using %s IPI extension\n",
 			clint_ipi_base ? "CLINT" : "SBI");

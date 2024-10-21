@@ -223,6 +223,7 @@ static void __exit ttyprintk_exit(void)
 	tty_unregister_driver(ttyprintk_driver);
 	tty_driver_kref_put(ttyprintk_driver);
 	tty_port_destroy(&tpk_port.port);
+	printk("here ttyprintk module\n");
 }
 
 device_initcall(ttyprintk_init);

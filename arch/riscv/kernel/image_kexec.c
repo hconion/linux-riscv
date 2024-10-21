@@ -105,7 +105,7 @@ static int load_other_segments(struct kimage *image,
 
 		ret = kexec_add_buffer(&kbuf);
 		if (ret) {
-			vfree(headers);
+			kfree(headers);
 			goto out_err;
 		}
 		image->elf_headers = headers;

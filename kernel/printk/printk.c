@@ -3675,6 +3675,7 @@ static int unregister_console_locked(struct console *console)
 	lockdep_assert_console_list_lock_held();
 
 	con_printk(KERN_INFO, console, "disabled\n");
+	printk("here\n");
 
 	res = _braille_unregister_console(console);
 	if (res < 0)

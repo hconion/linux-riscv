@@ -99,7 +99,7 @@ int bm1684x_veth_alloc_addr(struct veth_dev *vdev)
 	debug_log("desc tx virtual addr :0x%llx", (u64)vdev->desc_rx);
 
 	size = quene_size * sizeof(struct buffer_info);
-	vdev->rx_queue->buffer_info = vzalloc(size);
+	vdev->rx_queue->buffer_info = kzalloc(size, GFP_KERNEL);
 	if (!vdev->rx_queue->buffer_info) {
 		pr_err("buffer_info vzalloc fail");
 		return -ENOMEM;
@@ -195,7 +195,7 @@ static int veth_close(struct net_device *ndev)
 			  vdev->desc_rx,
 			  vdev->desc_rx_phy);
 	debug_log("dma_free_coherent rx\n");
-	vfree(vdev->rx_queue->buffer_info);
+	kfree(vdev->rx_queue->buffer_info);
 	debug_log("vdev->rx_queue->buffer_info\n");
 
 	return 0;
@@ -544,7 +544,7 @@ err_free_netdev:
 	return err;
 }
 
-static int sg_p2p_remove(struct platform_device *pdev)
+static void sg_p2p_remove(struct platform_device *pdev)
 {
 	struct veth_dev *vdev;
 	struct net_device *ndev;
@@ -561,7 +561,6 @@ static int sg_p2p_remove(struct platform_device *pdev)
 	debug_log("disable_irq\n");
 	free_netdev(ndev);
 	pr_info("free_netdev\n");
-	return 0;
 }
 
 static const struct of_device_id sg_p2p_match[] = {
