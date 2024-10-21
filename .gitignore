@@ -177,3 +177,12 @@ sphinx_*/
 
 # Rust analyzer configuration
 /rust-project.json
+
+# top directory log file
+/*.log
+
+# top directory vim Filelist
+FileList.txt
+
+# top directory build directory
+/build/
